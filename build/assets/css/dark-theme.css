@@ -47,12 +47,12 @@ header h1 {
 }
 
 .subject-name {
-    padding: 10px 4px;
+    padding: 10px 10px;
     font-size: 14px;
 }
 
 .room-name {
-    padding: 0.85em 10px;
+    padding: 12px 10px;
     font-size: 13px;
 }
 
@@ -62,7 +62,7 @@ header h1 {
 }
 
 main {
-    width: 75%;
+    width: 70%;
     margin: 0 auto;
 }
 
@@ -76,10 +76,6 @@ main {
     main {
         width: 100%;
         margin: 0 auto;
-    }
-
-    .subject-name {
-        font-size: 13px;
     }
 }
 
@@ -98,9 +94,5 @@ main {
     main {
         width: 100%;
         margin: 0 auto;
-    }
-
-    .subject-name {
-        font-size: 13px;
     }
 }
