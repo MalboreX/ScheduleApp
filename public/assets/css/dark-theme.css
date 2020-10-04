@@ -54,3 +54,9 @@ header h1 {
     padding: 12px 10px;
     font-size: 13px;
 }
+
+@media (max-width: 575.98px) { 
+    main {
+        margin: 0 15%;
+    }
+}
