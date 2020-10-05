@@ -10,7 +10,7 @@ function Timetable(props) {
             {keyIndex}
           </div>
           <div className="subject-grey">
-            <p className="subject-name">{keyName}</p>
+            <p className="subject-name">{props.subjects[keyName].name}</p>
             <p className="room-name">{props.subjects[keyName].room}</p>
           </div>
         </div>

@@ -7,7 +7,7 @@ class Main extends React.Component {
         super(props);
         this.state = {
             error: null,
-            items: [],
+            result: [],
             isLoaded: false
         }
     }
@@ -19,7 +19,7 @@ class Main extends React.Component {
             (result) => {
                 this.setState({
                     isLoaded: true,
-                    items: result.items
+                    result: result
                 });
             },
             (error) => {
@@ -32,16 +32,16 @@ class Main extends React.Component {
     }
     
     render() {
-        const { error, isLoaded, items} = this.state;
+        const { error, isLoaded, result} = this.state;
         let timetables = []
 
         if(error) 
             console.log(error);
 
         if (isLoaded) {
-            Object.keys(items).forEach(function(keyName, keyIndex) {
-                const subjects = items[keyName].subjects
-                timetables.push(<Timetable key={keyIndex} partyName={keyName} subjects={subjects}/>)
+            Object.keys(result).forEach(function(keyName, keyIndex) {
+                const scheduleDay = result[keyName]
+                timetables.push(<Timetable key={keyIndex} partyName={scheduleDay['name']} subjects={scheduleDay['subjects']}/>)
             })
         }
 
