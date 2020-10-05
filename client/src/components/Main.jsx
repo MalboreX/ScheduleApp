@@ -31,21 +31,28 @@ class Main extends React.Component {
         )
     }
 
+    test() {
+        console.log('hi')
+    }
+
     render() {
         const { error, isLoaded, items} = this.state;
-        
+        let timetables = []
+
+        if(error) 
+            console.log(error);
+
         if (isLoaded) {
-            console.log(items);
+            Object.keys(items).forEach(function(keyName, keyIndex) {
+                const subjects = items[keyName].subjects
+                timetables.push(<Timetable key={keyIndex} partyName={keyName} subjects={subjects}/>)
+            })
         }
 
         return (
             <main>
                 <div className = "row schedule-container">
-                    <Timetable partyName = "П-17"/>
-                    <Timetable partyName = "П-18"/>
-                    <Timetable partyName = "П-19"/>
-                    <Timetable partyName = "П-20"/>
-                    <Timetable partyName = "П-21"/>
+                    {timetables}
                 </div>
             </main>
         )
