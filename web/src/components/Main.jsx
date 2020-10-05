@@ -30,11 +30,7 @@ class Main extends React.Component {
             }
         )
     }
-
-    test() {
-        console.log('hi')
-    }
-
+    
     render() {
         const { error, isLoaded, items} = this.state;
         let timetables = []
