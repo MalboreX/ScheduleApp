@@ -9,7 +9,15 @@ app.listen(5000, () => console.log('App has been started...'))
 app.use(express.json());
 app.use(cors());
 
-app.get('/api/v1/schedule', function(request, response) {
+app.get('/api/v1/week', (request, response) => {
+    let res = {
+        'week': 1
+    }
+
+    response.json(res)
+})
+
+app.get('/api/v1/schedule', (request, response) => {
     const data = {
         items: { 
             'П-17': {
