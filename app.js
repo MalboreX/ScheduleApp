@@ -24,7 +24,7 @@ app.get('/api/v1/schedule', (request, response) => {
                 'subjects': {
                     'Физкультура': {'room': 'С/З', 'teacher': ''},
                     'ТРПО': {'room': 'А204', 'teacher': ''},
-                    'Докум. и серт.': {'room': 'А201', 'teacher': ''}
+                    'Документ. и серт.': {'room': 'А201', 'teacher': ''}
                 }
             }, 
             'П-20': {
