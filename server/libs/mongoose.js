@@ -2,7 +2,7 @@ const CONFIG = require('./../creds')
 
 const mongoose = require('mongoose')
 
-const dbUrlConnection = `mongodb+srv://${CONFIG.dbuser}:${CONFIG.dbpass}@schedulecluster.lzlry.mongodb.net/${CONFIG.dbname}?retryWrites=true&w=majority`
+const dbUrlConnection = `mongodb+srv://mikhail:1q2w3e4r5t@schedulecluster.lzlry.mongodb.net/ScheduleApp?retryWrites=true&w=majority`
 
 mongoose.connect(dbUrlConnection, { useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection
