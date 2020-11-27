@@ -7,6 +7,7 @@
     "start": "node app.js",
     "server": "nodemon app.js",
     "client": "npm run start --prefix ../web",
+    "admin": "npm run start --perfix ../admin",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
