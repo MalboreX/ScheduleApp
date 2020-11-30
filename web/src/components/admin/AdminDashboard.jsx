@@ -1,12 +1,12 @@
 import React from 'react'
 import AdminNavBar from './AdminNavBar'
 import AdminNavPanel from './AdminNavPanel'
-
+import AdminBreadcrumb from './AdminBreadcrumb'
 class AdminDashboard extends React.Component {
     constructor(props) {
         super(props)
 
-        document.body.style.background = 'white'
+        document.body.style.background = '#222'
 
     }
     
@@ -14,10 +14,22 @@ class AdminDashboard extends React.Component {
         return (
             <div>
                 <AdminNavBar/>
-                <div className="container-fluid" style={{paddingLeft: 0}}>
-                    <div className="col-12 col-sm-4 col-md-3 col-lg-3" style={{padding: 0}}>
-                        <AdminNavPanel/>
+                <div className="container-fluid">
+                    <div class="row" style={{marginTop: '15px'}}>
+                        <div class="col-12">
+                            <AdminBreadcrumb/>
+                        </div>
+                        
                     </div>
+                    <div class="row">
+                        <div className="col-12 col-sm-5 col-md-4 col-lg-3">
+                            <AdminNavPanel/>
+                        </div>
+                        <div className="col-12 col-sm-7 col-md-8 col-lg-9">
+                            <a>123</a>
+                        </div>
+                    </div>
+
                     
                 </div>
             </div>
