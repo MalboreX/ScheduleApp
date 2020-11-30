@@ -7,7 +7,7 @@ class AdminNavPanel extends React.Component {
         return (
             <div class="list-group" style={{borderRadius: 0}}>
         <a href="#" class="list-group-item list-group-item-action active">
-            Главная
+        <i class="fa fa-flag" aria-hidden="true" style={{marginRight: '8px'}}></i>Главная
         </a>
         <a href="#" class="list-group-item list-group-item-action">Редактирование данных</a>
         <a href="#" class="list-group-item list-group-item-action">Изменение расписания</a>
