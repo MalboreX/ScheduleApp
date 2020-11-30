@@ -16,13 +16,8 @@ class AdminDashboard extends React.Component {
             <div>
                 <AdminNavBar/>
                 <div className="container-fluid">
+                    
                     <div class="row" style={{marginTop: '15px'}}>
-                        <div class="col-12">
-                            <AdminBreadcrumb/>
-                        </div>
-                        
-                    </div>
-                    <div class="row">
                         <div className="col-12 col-sm-5 col-md-4 col-lg-3">
                             <AdminNavPanel/>
                         </div>
