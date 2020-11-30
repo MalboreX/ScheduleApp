@@ -1,7 +1,6 @@
 import React from 'react'
 import AdminNavBar from './AdminNavBar'
 import AdminNavPanel from './AdminNavPanel'
-import AdminBreadcrumb from './AdminBreadcrumb'
 import CardComponent from './dashboard/CardComponent'
 class AdminDashboard extends React.Component {
     constructor(props) {
@@ -34,7 +33,7 @@ class AdminDashboard extends React.Component {
                                 </div>
                             </div>
                             <div className="row">
-                                <div class="col-4">
+                                <div class="col-4"> 
                                     <CardComponent/>
                                 </div>
                                 <div class="col-4">
