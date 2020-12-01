@@ -1,18 +1,24 @@
 import React from 'react'
+import {useLocation} from 'react-router-dom'
 
 class AdminNavPanel extends React.Component {
-
+    constructor(props) {
+        super(props)
+    }
 
     render() {
+        const activePage = this.props.activePage
+        
+
         return (
-            <div class="list-group" style={{borderRadius: 0}}>
-        <a href="#" class="list-group-item list-group-item-action active">
-        <i class="fa fa-flag" aria-hidden="true" style={{marginRight: '8px'}}></i>Главная
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">Редактирование данных</a>
-        <a href="#" class="list-group-item list-group-item-action">Изменение расписания</a>
-        <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-        <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">Vestibulum at eros</a>
+            <div className="list-group" style={{borderRadius: 0}}>
+        <a href="/admin" className={"list-group-item list-group-item-action active" + "1"}>
+        <i className="fa fa-flag" aria-hidden="true" style={{marginRight: '8px'}}></i>Главная
+        </a>    
+        <a href="/admin/specs" className="list-group-item list-group-item-action"><i className="fa fa-hand-peace-o" aria-hidden="true" style={{marginRight: '8px'}}></i>Специальности</a>
+        <a href="/admin/subjects" className="list-group-item list-group-item-action"><i className="fa fa-subscript" aria-hidden="true" style={{marginRight: '8px'}}></i>Предметы</a>
+        <a href="/admin/teachers" className="list-group-item list-group-item-action"><i className="fa fa-users" aria-hidden="true" style={{marginRight: '8px'}}></i>Преподаватели</a>
+        <a href="#" className="list-group-item list-group-item-action disabled" tabIndex="-1" aria-disabled="true">Vestibulum at eros</a>
             </div>
         )
     }

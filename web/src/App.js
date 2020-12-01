@@ -16,6 +16,7 @@ class App extends React.Component {
       <div>
           <Switch>
             <Route history={history} path='/home' component={Schedule} />
+            <Route history={history} path='/admin/:page' component={AdminDashboard} />
             <Route history={history} path='/admin' component={AdminDashboard} />
             <Route history={history} path='/' component={Schedule} />
           </Switch>
