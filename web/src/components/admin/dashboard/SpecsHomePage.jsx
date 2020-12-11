@@ -1,7 +1,16 @@
 import React from 'react'
-import RedAlert from './../../messages/RedAlert'
+import GreenAlert from './../../messages/GreenAlert'
 
 class SpecsHomePage extends React.Component {
+
+    componentDidMount() {
+        fetch(localStorage.getItem('api_uri') + '/specs')
+        .then(res => res.json())
+        .then((result) => {
+            console.log(result)
+        })
+    }
+
     render() {
         return (
             <div className="container">
@@ -12,7 +21,7 @@ class SpecsHomePage extends React.Component {
                         </h3>
                     </div>
                 </div>
-                <RedAlert/>
+                <GreenAlert/>
                 <div className="row">
                     <div className="col-12 col-md-6 col-lg-4">
                         <form>
@@ -48,7 +57,23 @@ class SpecsHomePage extends React.Component {
                         </form>
                     </div>
                     <div className="col-12 col-md-6 col-lg-4">
-                        
+                    <form>
+                            <fieldset>
+                                <legend>
+                                    Изменение
+                                </legend>
+                            </fieldset>
+                            <div class="form-group">
+                                <label for="specNameChange">Название специальности</label>
+                                <select class="custom-select">
+                                    <option selected="">Open this select menu</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-success" type="submit">Изменить</button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -12,6 +12,8 @@ class AdminDashboard extends React.Component {
     constructor(props) {
         super(props)
 
+        localStorage.setItem('api_uri', 'http://localhost:5000/api/v1')
+
         const activePage = this.props.match.params.page
         this.state = {
             activePage: activePage
