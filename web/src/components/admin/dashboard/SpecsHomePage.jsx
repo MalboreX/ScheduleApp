@@ -15,7 +15,14 @@ class SpecsHomePage extends React.Component {
         fetch(localStorage.getItem('api_uri') + '/specs')
         .then(res => res.json())
         .then((result) => {
-            console.log(result)
+
+            const stateSpecs = []
+            const specs = JSON.parse(result)
+            const template = specs.map(item => item.name)
+            for(let t in template) {
+                stateSpecs.push(template[t])
+            }
+            this.setState({specs: stateSpecs})
         })
     }
 
@@ -59,6 +66,7 @@ class SpecsHomePage extends React.Component {
 
     render() {
         
+        const specs = this.state == undefined ? <option></option> : this.state.specs.map(item => <option key={item} value={item}>{item}</option>)
 
         return (
             <div className="container">
@@ -96,9 +104,8 @@ class SpecsHomePage extends React.Component {
                             <label htmlFor="specName">Название специальности</label>
                                 <select className="custom-select">
                                     <option defaultValue="">Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    
+                                    {specs}
                                 </select>
                             </div>
                             <button className="btn btn-danger" type="submit">Удалить</button>
