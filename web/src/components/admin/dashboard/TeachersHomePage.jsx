@@ -4,13 +4,9 @@ import RedAlert from './../../messages/RedAlert'
 
 class TeachersHomePage extends React.Component {
 
-    componentDidMount() {
-        
-    }
-
     render() {
         return (
-<div className="container">
+            <div className="container">
                 <div className="row">
                     <div className="col-12">
                         <h3 style={{textAlign: "center"}}>

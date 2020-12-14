@@ -26,4 +26,4 @@ const Spec = new Schema({
 const SpecModel = mongoose.model('Spec', Spec)
 
 module.exports.Timetable = TimetableModel
-module.exports.Spec = Spec
+module.exports.Spec = SpecModel
