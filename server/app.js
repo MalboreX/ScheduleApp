@@ -44,3 +44,27 @@ app.post('/api/v1/specs', (request, response) => {
     })
     
 })
+
+app.delete('/api/v1/specs', (request, response) => {
+    const name = request.body.name
+    Spec.deleteOne({name: name})
+    .then((result) => {
+        response.json(JSON.stringify({'result': 'ok'}))
+    })
+    .catch((err) => {
+        response.json(JSON.stringify({'result': 'error'}))
+    })
+})
+
+app.patch('/api/v1/specs', (request, response) => {
+    const sourceName = request.body.sourceName
+    const destName = request.body.destName
+
+    Spec.updateOne({name: sourceName}, {name: destName})
+    .then((result) => {
+        response.json(JSON.stringify({'result': 'ok'}))
+    })
+    .catch((err) => {
+        response.json(JSON.stringify({'result': 'error'}))
+    })
+})
