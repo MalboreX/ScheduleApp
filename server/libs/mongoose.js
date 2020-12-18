@@ -25,5 +25,12 @@ const Spec = new Schema({
 
 const SpecModel = mongoose.model('Spec', Spec)
 
+const Discipline = new Schema({
+    name: String
+})
+
+const DisciplineModel = mongoose.model('Discipline', Discipline)
+
 module.exports.Timetable = TimetableModel
 module.exports.Spec = SpecModel
+module.exports.Discipline = DisciplineModel

@@ -1,9 +1,126 @@
 import React from 'react'
 
 import RedAlert from './../../messages/RedAlert'
+import GreenAlert from './../../messages/GreenAlert'
+import YellowAlert from './../../messages/YellowAlert'
+
 
 class SubjectsHomePage extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.getMessage = this.getMessage.bind(this)
+        this.addSubject = this.addSubject.bind(this)
+        this.getDisciplines = this.getDisciplines.bind(this)
+        this.removeDiscipline = this.removeDiscipline.bind(this)
+        this.changeDiscipline = this.changeDiscipline.bind(this)
+
+        this.state = {
+            disciplines: undefined
+        }
+    }
+
+    changeDiscipline() {
+        const sourceName = document.getElementById("disciplineNameChange").value
+        const destName = document.getElementById("disciplineNameChangeDest").value        
+
+        const requestParameters = {
+            method: "PATCH",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                sourceName: sourceName,
+                destName: destName
+            })
+        }
+    }
+
+    removeDiscipline() {
+        const name = document.getElementById("disciplineNameRemove").value
+        
+        const requestParameters = {
+            method: "DELETE",
+            headers: { "Content-type": "application/json"},
+            body: JSON.stringify({
+                name: name
+            })
+        }
+
+        fetch(localStorage.getItem('api_uri') + '/disciplines', requestParameters)
+        .then(res => res.json())
+        .then(result => {
+            const resultMessage = JSON.parse(result)
+            if (resultMessage.result == 'ok') {
+                this.setState({message: 'Предмет был успешно удален', messageLevel: 'green'})            
+                this.getDisciplines()
+            } else {
+                this.setState({message: 'Произошла ошибка при удалении предмета', messageLevel: 'red'})
+            }
+        })
+    }
+
+    addSubject() {
+        const nameSubject = document.getElementById("nameDisciplineAdd").value
+        const requestParameters = {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({
+                name: nameSubject
+            })
+        }
+        fetch(localStorage.getItem('api_uri') + '/disciplines', requestParameters)
+        .then(res => res.json())
+        .then(result => {
+            const resultMessage = JSON.parse(result)
+            if (resultMessage.result == 'ok') {
+                document.getElementById("nameDisciplineAdd").value = ""
+                this.setState({message: 'Предмет был успешно добавлен', messageLevel: 'green'})            
+                this.getDisciplines()
+            } else {
+                this.setState({message: 'Произошла ошибка при добавлении предмета', messageLevel: 'red'})
+            }   
+        })
+    }
+
+    getMessage() {
+        //if(this.state == undefined) return;
+        if(this.state.messageLevel !== undefined) {
+            switch(this.state.messageLevel) {
+                case 'red':
+                    return <RedAlert message={this.state.message}></RedAlert>
+                case 'yellow':
+                    return <YellowAlert message={this.state.message}></YellowAlert>
+                case 'green':
+                    return <GreenAlert message={this.state.message}></GreenAlert>
+                default:
+                    return <div></div>
+                break;
+            }
+        }
+    } 
+
+    componentDidMount() {
+        this.getDisciplines()
+    }
+
+    getDisciplines() {
+        fetch(localStorage.getItem('api_uri') + '/disciplines')
+        .then(res => res.json())
+        .then(result => {
+            const stateDisciplines = []
+            const disciplines = JSON.parse(result)
+            const template = disciplines.map(item => item.name)
+            for(let t in template) {
+                stateDisciplines.push(template[t])
+            }
+            this.setState({disciplines: stateDisciplines})
+        })
+    }
+    
     render() {
+
+        const disc = this.state.disciplines == undefined ? <option></option> : this.state.disciplines.map(item => <option key={item} value={item}>{item}</option>)
         return (
             <div className="container">
                 <div className="row">
@@ -13,7 +130,7 @@ class SubjectsHomePage extends React.Component {
                         </h3>
                     </div>
                 </div>
-                <RedAlert/>
+                {this.getMessage()}
                 <div className="row">
                     <div className="col-12 col-md-6 col-lg-4">
                         <form>
@@ -23,10 +140,10 @@ class SubjectsHomePage extends React.Component {
                                 </legend>
                             </fieldset>
                             <div className="form-group">
-                                <label for="specName">Название предмета</label>
-                                <input className="form-control" id="specName" aria-describedby="specHelp" type="text" placeholder="Название.."/>
+                                <label for="nameDisciplineAdd">Название предмета</label>
+                                <input className="form-control" id="nameDisciplineAdd" aria-describedby="specHelp" type="text" placeholder="Название.."/>
                             </div>
-                            <button class="btn btn-primary" type="submit">Добавить</button>
+                            <button onClick={this.addSubject} class="btn btn-primary" type="button">Добавить</button>
                         </form>
                     </div>
                     <div className="col-12 col-md-6 col-lg-4">
@@ -37,15 +154,13 @@ class SubjectsHomePage extends React.Component {
                                 </legend>
                             </fieldset>
                             <div class="form-group">
-                            <label for="specName">Название предмета</label>
-                                <select class="custom-select">
-                                    <option selected="">Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                            <label for="disciplineNameRemove">Название предмета</label>
+                                <select id="disciplineNameRemove" class="custom-select">
+                                    <option selected="">Выберите предмет</option>
+                                    {disc}
                                 </select>
                             </div>
-                            <button class="btn btn-danger" type="submit">Удалить</button>
+                            <button onClick={this.removeDiscipline} class="btn btn-danger" type="button">Удалить</button>
                         </form>
                     </div>
                     <div className="col-12 col-md-6 col-lg-4">
@@ -56,15 +171,13 @@ class SubjectsHomePage extends React.Component {
                                 </legend>
                             </fieldset>
                             <div class="form-group">
-                                <label for="specNameChange">Название предмета</label>
-                                <select class="custom-select">
-                                    <option selected="">Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                <label for="disciplineNameChange">Название предмета</label>
+                                <select id="disciplineNameChange" class="custom-select">
+                                    <option selected="">Выберите предмет</option>
+                                    {disc}
                                 </select>
                             </div>
-                            <button class="btn btn-success" type="submit">Изменить</button>
+                            <button onClick={this.changeDiscipline} class="btn btn-success" type="button">Изменить</button>
                         </form>
                     </div>
                 </div>
