@@ -34,6 +34,18 @@ class SubjectsHomePage extends React.Component {
                 destName: destName
             })
         }
+
+        fetch(localStorage.getItem('api_uri') +'/disciplines', requestParameters)
+        .then(res => res.json())
+        .then(result => {
+            const resultMessage = JSON.parse(result)
+            if (resultMessage.result == 'ok') {
+                this.setState({message: 'Предмет был успешно изменен', messageLevel: 'green'})            
+                this.getDisciplines()
+            } else {
+                this.setState({message: 'Произошла ошибка при изменении предмета', messageLevel: 'red'})
+            }
+        })
     }
 
     removeDiscipline() {
