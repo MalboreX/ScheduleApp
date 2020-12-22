@@ -26,7 +26,8 @@ const Spec = new Schema({
 const SpecModel = mongoose.model('Spec', Spec)
 
 const Discipline = new Schema({
-    name: String
+    name: String,
+    speciality: String
 })
 
 const DisciplineModel = mongoose.model('Discipline', Discipline)

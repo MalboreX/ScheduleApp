@@ -80,8 +80,9 @@ app.get('/api/v1/disciplines', (request, response) => {
 
 app.post('/api/v1/disciplines', (request, response) => {
     const name = request.body.name
+    const spec = request.body.speciality
    
-    const discipline = new Discipline({name: name})
+    const discipline = new Discipline({name: name, speciality: spec})
     discipline.save()
     .then((result) => {
         response.json(JSON.stringify({'result': 'ok'}))

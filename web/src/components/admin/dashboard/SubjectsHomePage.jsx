@@ -14,6 +14,7 @@ class SubjectsHomePage extends React.Component {
         this.getDisciplines = this.getDisciplines.bind(this)
         this.removeDiscipline = this.removeDiscipline.bind(this)
         this.changeDiscipline = this.changeDiscipline.bind(this)
+        this.getSpecs = this.getSpecs.bind(this)
 
         this.state = {
             disciplines: undefined
@@ -22,7 +23,7 @@ class SubjectsHomePage extends React.Component {
 
     changeDiscipline() {
         const sourceName = document.getElementById("disciplineNameChange").value
-        const destName = document.getElementById("disciplineNameChangeDest").value        
+        const destName = document.getElementById("destDisciplineNameChange").value        
 
         const requestParameters = {
             method: "PATCH",
@@ -40,6 +41,7 @@ class SubjectsHomePage extends React.Component {
         .then(result => {
             const resultMessage = JSON.parse(result)
             if (resultMessage.result == 'ok') {
+                document.getElementsById("destDisciplineNameChange").value = ''
                 this.setState({message: 'Предмет был успешно изменен', messageLevel: 'green'})            
                 this.getDisciplines()
             } else {
@@ -74,11 +76,14 @@ class SubjectsHomePage extends React.Component {
 
     addSubject() {
         const nameSubject = document.getElementById("nameDisciplineAdd").value
+        const nameSpec = document.getElementById("nameSpecialityAdd").value
+
         const requestParameters = {
             method: "POST",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
-                name: nameSubject
+                name: nameSubject,
+                speciality: nameSpec
             })
         }
         fetch(localStorage.getItem('api_uri') + '/disciplines', requestParameters)
@@ -114,6 +119,21 @@ class SubjectsHomePage extends React.Component {
 
     componentDidMount() {
         this.getDisciplines()
+        this.getSpecs()
+    }
+
+    getSpecs() {
+        fetch(localStorage.getItem('api_uri') + '/specs')
+        .then(res => res.json())
+        .then((result) => {
+            const stateSpecs = []
+            const specs = JSON.parse(result)
+            const template = specs.map(item => item.name)
+            for(let t in template) {
+                stateSpecs.push(template[t])
+            }
+            this.setState({specs: stateSpecs})
+        })
     }
 
     getDisciplines() {
@@ -133,6 +153,9 @@ class SubjectsHomePage extends React.Component {
     render() {
 
         const disc = this.state.disciplines == undefined ? <option></option> : this.state.disciplines.map(item => <option key={item} value={item}>{item}</option>)
+        const specs = this.state.specs == undefined ? <option></option> : this.state.specs.map(item => <option key={item} value={item}>{item}</option>)
+        
+        
         return (
             <div className="container">
                 <div className="row">
@@ -154,6 +177,13 @@ class SubjectsHomePage extends React.Component {
                             <div className="form-group">
                                 <label for="nameDisciplineAdd">Название предмета</label>
                                 <input className="form-control" id="nameDisciplineAdd" aria-describedby="specHelp" type="text" placeholder="Название.."/>
+                            </div>
+                            <div className="form-group">
+                                <label for="nameSpecialityAdd">Выберите специальность</label>
+                                <select id="nameSpecialityAdd" class="custom-select">
+                                    <option value="all" selected="">Для всех специальностей</option>
+                                    {specs}
+                                </select>
                             </div>
                             <button onClick={this.addSubject} class="btn btn-primary" type="button">Добавить</button>
                         </form>
@@ -188,6 +218,10 @@ class SubjectsHomePage extends React.Component {
                                     <option selected="">Выберите предмет</option>
                                     {disc}
                                 </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="destDisciplineNameChange">Новое название предмета</label>
+                                <input className="form-control" id="destDisciplineNameChange" aria-describedby="specHelp" type="text" placeholder="Название.."/>
                             </div>
                             <button onClick={this.changeDiscipline} class="btn btn-success" type="button">Изменить</button>
                         </form>
