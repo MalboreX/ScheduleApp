@@ -1,17 +1,19 @@
-import { React, useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import { React, useState } from 'react'
+import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import TextField from '@material-ui/core/TextField'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import Link from '@material-ui/core/Link'
+import Grid from '@material-ui/core/Grid'
+import Box from '@material-ui/core/Box'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import Container from '@material-ui/core/Container'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import API from './../utils/API.js'
 
 function Copyright() {
   return (
@@ -51,11 +53,41 @@ export default function SignIn() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
-  const Auth = e => {
+
+  async function Auth(e) {
     e.preventDefault()
-    console.log(email, password)
+    setIsLoading(true)
+
+    const response = await API.get('/auth', {
+      params: {
+        email: email,
+        password: password
+      }
+    })
+
+    const token = response.data.token
+    if(token) localStorage.setItem('JWT_TOKEN', token)
+
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
   }
+
+  const Loader = () => {
+    return (
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <CircularProgress/>
+        </div>
+      </Container>
+    )
+  }
+
+  if(isLoading)
+    return <Loader/>
 
   return (
     <Container component="main" maxWidth="xs">

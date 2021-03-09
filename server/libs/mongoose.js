@@ -32,6 +32,14 @@ const Discipline = new Schema({
 
 const DisciplineModel = mongoose.model('Discipline', Discipline)
 
+const User = new Schema({
+  email: String,
+  password: String
+})
+
+const UserModel = mongoose.model('User', User)
+
+
 module.exports.Timetable = TimetableModel
 module.exports.Spec = SpecModel
 module.exports.Discipline = DisciplineModel

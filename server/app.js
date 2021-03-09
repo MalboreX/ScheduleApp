@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-//const { Timetable, Spec } = require('./libs/mongoose')
+const jwt = require('jsonwebtoken')
 const app = express()
 
 const Timetable = require('./libs/mongoose').Timetable
@@ -18,12 +18,27 @@ apiRouter.get('/schedule', (request, response) => {
     })
 })
 
-
-app.use(express.json());
+app.use(express.json())
 app.use(express.urlencoded())
-app.use(cors());
+app.use(cors())
 
 app.use('/api/v1/', apiRouter)
+
+app.use( (req, res, next) => {
+  console.log('MIDDLEWARE TEST')
+  next()
+})
+
+apiRouter.get('/auth', (request, response) => {
+  const privateKey = 'MY_SUPER_PRIVATE_KEY'
+  const token = jwt.sign({body: 'stuff'}, privateKey, { algorithm: 'HS256'})
+
+  response.status(200).json({
+    'token': token
+  })
+})
+
+
 
 //SPECS//
 app.get('/api/v1/specs', (request, response) => {
