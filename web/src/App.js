@@ -1,28 +1,25 @@
-import React from 'react';
+import logo from './logo.svg';
+import './App.css';
 
-
-import Schedule from './components/Schedule'
-import AdminDashboard from './components/admin/AdminDashboard'
-
-import {
-  Route,
-  Switch
-} from "react-router-dom"
-
-class App extends React.Component {
-  render() {
-    const { history } = this.props
-    return (
-      <div>
-          <Switch>
-            <Route history={history} path='/home' component={Schedule} />
-            <Route history={history} path='/admin/:page' component={AdminDashboard} />
-            <Route history={history} path='/admin' component={AdminDashboard} />
-            <Route history={history} path='/' component={Schedule} />
-          </Switch>
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
 }
 
 export default App;
