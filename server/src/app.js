@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 
+const globalErrHandler = require('./api/controllers/errorController')
 const userRoutes = require('./api/routes/userRoutes')
 
 const app = express()
@@ -11,6 +12,11 @@ app.use(express.json())
 app.use(express.urlencoded())
 
 app.use('/api/v1/users', userRoutes)
+
+
+
+
+app.use(globalErrHandler);
 
 module.exports = app
 
