@@ -13,7 +13,7 @@ const apiRouter = express.Router()
 
 apiRouter.get('/schedule', (request, response) => {
     Timetable.find({}, (error, result) => {
-        if(error) console.log(error)        
+        if(error) console.log(error)
         return response.json(result)
     })
 })
@@ -29,7 +29,7 @@ app.use('/api/v1/', apiRouter)
 app.get('/api/v1/specs', (request, response) => {
     Spec.find({}, (err, res) => {
         response.json(JSON.stringify(res))
-    })    
+    })
 })
 
 app.post('/api/v1/specs', (request, response) => {
@@ -43,7 +43,7 @@ app.post('/api/v1/specs', (request, response) => {
     .catch((err) => {
         response.json(JSON.stringify({'result': 'error'}))
     })
-    
+
 })
 
 app.delete('/api/v1/specs', (request, response) => {
@@ -81,7 +81,7 @@ app.get('/api/v1/disciplines', (request, response) => {
 app.post('/api/v1/disciplines', (request, response) => {
     const name = request.body.name
     const spec = request.body.speciality
-   
+
     const discipline = new Discipline({name: name, speciality: spec})
     discipline.save()
     .then((result) => {
