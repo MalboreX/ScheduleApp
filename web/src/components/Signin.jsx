@@ -61,11 +61,9 @@ export default function SignIn() {
 
     setIsLoading(true)
 
-    const response = await API.get('/auth', {
-      params: {
-        email: email,
-        password: password
-      }
+    const response = await API.post('/users/auth', {
+      email: email,
+      password: password
     })
 
     const token = response.data.token
@@ -74,9 +72,10 @@ export default function SignIn() {
       setTimeout(() => {
         setIsLoading(false)
       }, 1000)
+      console.log(response.data)
     }
     else {
-
+      console.log(response.data)
     }
   }
 
