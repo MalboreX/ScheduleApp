@@ -4,9 +4,9 @@
   "description": "ScheduleApp for college",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "server": "nodemon app.js",
-    "client": "npm run start --prefix ../web",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm run start --prefix ../../web",
     "admin": "npm run start --perfix ../admin",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
@@ -21,13 +21,16 @@
   },
   "homepage": "https://github.com/MalboreX/ScheduleApp#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "concurrently": "^5.3.0",
+    "config": "^3.3.6",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.7",
     "nodemon": "^2.0.4",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "validator": "^13.5.2"
   }
 }

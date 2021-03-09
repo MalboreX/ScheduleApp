@@ -1,0 +1,10 @@
+{
+  "jwt": {
+    "private_key": "MY_SUPER_PRIVATE_KEY",
+    "algorithm": "HS256"
+  },
+  "db": {
+    "user": "mikhail",
+    "password": "1q2w3e4r5t"
+  }
+}

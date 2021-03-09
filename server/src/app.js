@@ -1,16 +1,23 @@
 const express = require('express')
 const cors = require('cors')
-const jwt = require('jsonwebtoken')
+
+const userRoutes = require('./api/routes/userRoutes')
+
 const app = express()
 
-const Timetable = require('./libs/mongoose').Timetable
-const Spec = require('./libs/mongoose').Spec
-const Discipline = require('./libs/mongoose').Discipline
 
-app.listen(5000, () => console.log('App has been started...'))
+app.use(cors())
 
-const apiRouter = express.Router()
+app.use('/api/v1/users', userRoutes)
 
+module.exports = app
+
+//app.listen(5000, () => console.log('App has been started...'))
+
+//const apiRouter = express.Router()
+
+
+/*
 apiRouter.get('/schedule', (request, response) => {
     Timetable.find({}, (error, result) => {
         if(error) console.log(error)
@@ -24,22 +31,13 @@ app.use(cors())
 
 app.use('/api/v1/', apiRouter)
 
-function isAuthorized(req, res, next) {
-
-}
-
 apiRouter.get('/auth', (request, response) => {
-  const privateKey = 'MY_SUPER_PRIVATE_KEY'
-  const token = jwt.sign({body: 'stuff'}, privateKey, { algorithm: 'HS256'})
 
-  response.status(200).json({
-    'token': token
-  })
 })
 
 
 
-//SPECS//
+
 app.get('/api/v1/specs', (request, response) => {
     Spec.find({}, (err, res) => {
         response.json(JSON.stringify(res))
@@ -117,3 +115,4 @@ app.delete('/api/v1/disciplines', (request, response) => {
         response.json(JSON.stringify({'result': 'error'}))
     })
 })
+*/
