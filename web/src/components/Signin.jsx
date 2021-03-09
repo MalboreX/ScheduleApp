@@ -58,6 +58,7 @@ export default function SignIn() {
 
   async function Auth(e) {
     e.preventDefault()
+
     setIsLoading(true)
 
     const response = await API.get('/auth', {
@@ -68,11 +69,15 @@ export default function SignIn() {
     })
 
     const token = response.data.token
-    if(token) localStorage.setItem('JWT_TOKEN', token)
+    if(token) {
+      localStorage.setItem('JWT_TOKEN', token)
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 1000)
+    }
+    else {
 
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 1000)
+    }
   }
 
   const Loader = () => {

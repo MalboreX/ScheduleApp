@@ -24,10 +24,9 @@ app.use(cors())
 
 app.use('/api/v1/', apiRouter)
 
-app.use( (req, res, next) => {
-  console.log('MIDDLEWARE TEST')
-  next()
-})
+function isAuthorized(req, res, next) {
+
+}
 
 apiRouter.get('/auth', (request, response) => {
   const privateKey = 'MY_SUPER_PRIVATE_KEY'
