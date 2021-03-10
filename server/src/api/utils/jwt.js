@@ -1,8 +1,15 @@
 const jwt = require('jsonwebtoken')
 const config = require('config')
 
-exports.createToken = (userId) => {
-  const privateKey = config.get('jwt.private_key')
-  const token = jwt.sign({body: userId}, privateKey, { algorithm: config.get('jwt.algorithm')})
-  return token
+const privateKey = config.get('jwt.private_key')
+
+exports.createToken = userId => {
+  return jwt.sign({body: userId}, privateKey, { algorithm: config.get('jwt.algorithm')})
+}
+
+exports.verifyToken = token => {
+    jwt.verify(token, privateKey, { algorithm: 'HS256'}, (err, decoded) => {
+      if (err) return false
+      return true
+    })
 }
