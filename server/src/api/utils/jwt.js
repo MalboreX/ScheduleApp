@@ -4,12 +4,22 @@ const config = require('config')
 const privateKey = config.get('jwt.private_key')
 
 exports.createToken = userId => {
-  return jwt.sign({body: userId}, privateKey, { algorithm: config.get('jwt.algorithm')})
+  const user = {
+    id: userId
+  }
+
+  return jwt.sign({ user }, privateKey)
 }
 
 exports.verifyToken = token => {
-    jwt.verify(token, privateKey, { algorithm: 'HS256'}, (err, decoded) => {
-      if (err) return false
-      return true
+    let isValid = false
+    jwt.verify(token, privateKey, (err, decoded) => {
+      if (err) {
+        isValid = false
+      }
+      else isValid = true
+
+      isValid = isValid && decoded
     })
+    return isValid
 }

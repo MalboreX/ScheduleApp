@@ -39,3 +39,23 @@ exports.login = async (req, res, next) => {
     next(err)
   }
 }
+
+exports.verifyToken = (req, res, next) => {
+  try {
+    if (typeof req.headers.authorization !== undefined) {
+      const token = req.headers.authorization.split(' ')[1]
+      if (jwt.verifyToken(token)) {
+        return res.status(200).json({
+          status: 'success'
+        })
+      }
+      else {
+      return res.status(401).json({
+        status: 'fail'
+      })}
+    }
+  }
+  catch (err) {
+    next(err)
+  }
+}
