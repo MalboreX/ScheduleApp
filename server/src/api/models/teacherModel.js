@@ -6,6 +6,10 @@ const teacherSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Please fill teacher\'s name']
+  },
+  spec: {
+    type: String,
+    required: [true, 'Please fill teacher\'s speciality']
   }
 })
 
