@@ -40,7 +40,7 @@ exports.login = async (req, res, next) => {
   }
 }
 
-exports.verifyToken = (req, res, next) => {
+exports.verifyToken = async (req, res, next) => {
   try {
     if (typeof req.headers.authorization !== undefined) {
       const token = req.headers.authorization.split(' ')[1]

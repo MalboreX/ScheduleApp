@@ -15,4 +15,4 @@ db.on('open', () => {
     console.log('App has been connected to database...')
 })
 
-app.listen(5000, () => console.log('App has been started...'))
+app.listen(config.get('env.port'), () => console.log('App has been started...'))

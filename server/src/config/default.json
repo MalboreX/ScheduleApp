@@ -1,4 +1,7 @@
 {
+  "env": {
+    "port": 5000 
+  }
   "jwt": {
     "private_key": "MY_SUPER_PRIVATE_KEY",
     "algorithm": "HS256"
