@@ -66,3 +66,31 @@ exports.removeTeachers = async(req, res, next) => {
     next(err)
   }
 }
+
+exports.updateTeachers = async(req, res, next) => {
+  try {
+    const { _id, name, spec } = req.body
+    if(_id && name && spec) {
+      await Teacher.updateOne({
+        '_id': _id
+      },
+      {
+        'name': name,
+        'spec': spec
+      })
+      .then(result => {
+        return res.status(200).json({
+          status: 'success'
+        })
+      })
+      .catch(err => {
+        return next(new AppError(449, 'fail', 'No teacher with provided id'), req, res, next)
+      })
+    } else {
+        return next(new AppError(449, 'fail', 'Please provide teacher\'s id, name and spec'), req, res, next)
+    }
+  }
+  catch(err) {
+    next(err)
+  }
+}
