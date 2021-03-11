@@ -5,5 +5,6 @@ const teacherController = require('../controllers/teacherController')
 
 router.get('/', teacherController.getTeachers)
 router.post('/', teacherController.addTeachers)
+router.delete('/', teacherController.removeTeachers)
 
 module.exports = router

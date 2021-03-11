@@ -30,7 +30,7 @@ exports.addTeachers = async (req, res, next) => {
       await teacher.save()
       .then(result => {
         return res.status(200).json({
-          result: 'success'
+          status: 'success'
         })
       })
       .catch(err => {
@@ -38,6 +38,28 @@ exports.addTeachers = async (req, res, next) => {
       })
     } else {
       return next(new AppError(449, 'fail', 'Please provide name and spec'), req, res, next)
+    }
+  }
+  catch(err) {
+    next(err)
+  }
+}
+
+exports.removeTeachers = async(req, res, next) => {
+  try {
+    const teacherId = req.body._id
+    if(teacherId) {
+      await Teacher.deleteOne({ '_id': teacherId })
+      .then(result => {
+        return res.status(200).json({
+          status: 'success'
+        })
+      })
+      .catch(err => {
+        return next(new AppError(449, 'fail', 'No teacher with provided id'), req, res, next)
+      })
+    } else {
+      return next(new AppError(449, 'fail', 'Please provide teacher\'s id'), req, res, next)
     }
   }
   catch(err) {
