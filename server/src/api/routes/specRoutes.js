@@ -7,6 +7,6 @@ router.get('/', specController.getSpecs)
 
 router.post('/', specController.addSpecs)
 router.delete('/', specController.removeSpecs)
-router.delete('/', specController.updateSpecs)
+router.patch('/', specController.updateSpecs)
 
 module.exports = router
