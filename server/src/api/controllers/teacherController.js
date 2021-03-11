@@ -27,7 +27,7 @@ exports.addTeachers = async (req, res, next) => {
         'spec': spec
       })
 
-      await Teacher.save(teacher)
+      await teacher.save()
       .then(result => {
         return res.status(200).json({
           result: 'success'
