@@ -5,4 +5,6 @@ const specController = require('../controllers/specController')
 
 router.get('/', specController.getSpecs)
 
+router.post('/', specController.addSpecs)
+
 module.exports = router

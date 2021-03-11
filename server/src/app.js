@@ -15,7 +15,7 @@ app.use(express.urlencoded())
 
 app.use('/api/v1/users', userRoutes)
 app.use('/api/v1/teachers', teacherRoutes)
-app.use('/api/v1/specs', teacherRoutes)
+app.use('/api/v1/specs', specRoutes)
 
 
 
