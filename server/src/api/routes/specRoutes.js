@@ -6,5 +6,7 @@ const specController = require('../controllers/specController')
 router.get('/', specController.getSpecs)
 
 router.post('/', specController.addSpecs)
+router.delete('/', specController.removeSpecs)
+router.delete('/', specController.updateSpecs)
 
 module.exports = router
