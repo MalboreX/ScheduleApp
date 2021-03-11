@@ -4,6 +4,7 @@ const cors = require('cors')
 const globalErrHandler = require('./api/controllers/errorController')
 const userRoutes = require('./api/routes/userRoutes')
 const teacherRoutes = require('./api/routes/teacherRoutes')
+const specRoutes = require('./api/routes/specRoutes')
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.use(express.urlencoded())
 
 app.use('/api/v1/users', userRoutes)
 app.use('/api/v1/teachers', teacherRoutes)
+app.use('/api/v1/specs', teacherRoutes)
 
 
 
