@@ -58,3 +58,33 @@ exports.removeTimetables = async(req, res, next) => {
     next(err)
   }
 }
+
+exports.updateTimetables = async(req, res, next) => {
+  try {
+    const { _id, date, disciplines, name } = req.body
+    if(_id) {
+      const patchedTimetable = {}
+
+      await Timetable.updateOne({
+        '_id': _id
+      }, {
+        'date': date,
+        'disciplines': disciplines,
+        'name': name
+      })
+      .then(result => {
+        return res.status(200).json({
+          status: 'success'
+        })
+      })
+      .catch(err => {
+        return next(new AppError(419, 'fail', 'No timetable with provided id'), req, res, next)
+      })
+    } else {
+      return next(new AppError(419, 'fail', 'Please provide id of timetable'), req, res, next)
+    }
+  }
+  catch(err) {
+    next(err)
+  }
+}
