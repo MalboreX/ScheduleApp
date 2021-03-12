@@ -63,8 +63,6 @@ exports.updateTimetables = async(req, res, next) => {
   try {
     const { _id, date, disciplines, name } = req.body
     if(_id) {
-      const patchedTimetable = {}
-
       await Timetable.updateOne({
         '_id': _id
       }, {
