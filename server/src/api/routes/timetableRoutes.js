@@ -5,6 +5,7 @@ const authController = require('../controllers/authController')
 
 const timetableController = require('../controllers/timetableController')
 
+router.get('/:date', timetableController.getTimetables)
 router.get('/', timetableController.getTimetables)
 
 router.post('/', timetableController.addTimetables)

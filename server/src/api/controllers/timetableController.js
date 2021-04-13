@@ -4,7 +4,23 @@ const AppError = require('./../utils/appError')
 
 exports.getTimetables = async(req, res, next) => {
   try {
-    await Timetable.find({}, (error, result) => {
+    if(!req.params.date) {
+      return next(new AppError(419, 'fail', 'Please provide date'), req, res, next)
+    }
+
+    const gte = new Date(req.params.date)
+    gte.setDate(gte.getDate() - 1)
+    console.log(gte)
+    const lt = new Date(req.params.date)
+    lt.setDate(lt.getDate() + 1)
+    const query =  {
+      date: {
+        $gte: gte,
+        $lt: lt
+      }
+    }
+
+    await Timetable.find(query, (error, result) => {
       if (error) {
         return next(new AppError(500, 'fail', 'Sometimes shit happens'), req, res, next)
       } else {
