@@ -9,8 +9,6 @@ exports.getTimetables = async(req, res, next) => {
     }
 
     const gte = new Date(req.params.date)
-    gte.setDate(gte.getDate() - 1)
-    console.log(gte)
     const lt = new Date(req.params.date)
     lt.setDate(lt.getDate() + 1)
     const query =  {
