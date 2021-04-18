@@ -15,4 +15,13 @@ db.on('open', () => {
     console.log('App has been connected to database...')
 })
 
-app.listen(config.get('env.port'), () => console.log('App has been started...'))
+let server = app.listen(config.get('env.port'), () => console.log('App has been started...'))
+
+const cleanup = () => {
+    console.log('App is closing...')
+    db.close()
+    server.close()
+}
+
+process.on('SIGINT', cleanup);
+process.on('SIGTERM', cleanup);
