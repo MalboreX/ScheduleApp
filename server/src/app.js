@@ -8,6 +8,7 @@ const specRoutes = require('./api/routes/specRoutes')
 const disciplineRoutes = require('./api/routes/disciplineRoutes')
 const timetableRoutes = require('./api/routes/timetableRoutes')
 const groupRoutes = require('./api/routes/groupRoutes')
+const roomRoutes = require('./api/routes/roomRoutes')
 
 const app = express()
 
@@ -22,6 +23,7 @@ app.use('/api/v1/specs', specRoutes)
 app.use('/api/v1/disciplines', disciplineRoutes)
 app.use('/api/v1/timetables', timetableRoutes)
 app.use('/api/v1/groups', groupRoutes)
+app.use('/api/v1/rooms', roomRoutes)
 
 app.use(globalErrHandler);
 
