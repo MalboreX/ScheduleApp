@@ -43,7 +43,7 @@ exports.addRooms = async (req, res, next) => {
   }
 }
 
-exports.removeSpecs = async(req, res, next) => {
+exports.removeRooms = async(req, res, next) => {
   try {
     const roomId = req.body._id
     if(roomId) {
@@ -65,7 +65,7 @@ exports.removeSpecs = async(req, res, next) => {
   }
 }
 
-exports.updateSpecs = async(req, res, next) => {
+exports.updateRooms = async(req, res, next) => {
   try {
     const { _id, name } = req.body
     if(_id && name) {
