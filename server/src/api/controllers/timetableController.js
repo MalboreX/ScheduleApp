@@ -31,19 +31,44 @@ exports.getTimetables = async(req, res, next) => {
   }
 }
 
+// exports.addTimetables = async(req, res, next) => {
+//   try {
+//     const timetable = new Timetable(req.body)
+//     await timetable.save()
+//     .then(result => {
+//       return res.status(200).json({
+//         status: 'success'
+//       })
+//     })
+//     .catch(error => {
+//       return next(new AppError(500, 'fail', 'Sometimes shit happens'), req, res, next)
+//     })
+
+//   }
+//   catch(err) {
+//     next(err)
+//   }
+// }
+
 exports.addTimetables = async(req, res, next) => {
   try {
-    const timetable = new Timetable(req.body)
-    await timetable.save()
-    .then(result => {
-      return res.status(200).json({
-        status: 'success'
-      })
-    })
-    .catch(error => {
-      return next(new AppError(500, 'fail', 'Sometimes shit happens'), req, res, next)
-    })
+    const timetables = req.body.timetables
 
+    for(let x of timetables) {
+      const timetable = new Timetable(x)
+      await timetable.save()
+      .then(result => {
+        
+      })
+      .catch(error => {
+        console.log(error)
+        return next(new AppError(500, 'fail', 'Sometimes shit happens'), req, res, next)
+      }) 
+    }
+
+    return res.status(200).json({
+      status: 'success'
+    })
   }
   catch(err) {
     next(err)

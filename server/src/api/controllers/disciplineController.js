@@ -67,13 +67,14 @@ exports.removeDisciplines = async (req, res, next) => {
 
 exports.updateDisciplines = async (req, res, next) => {
   try {
-    const { _id, name } = req.body
+    const { _id, name, spec } = req.body
     if(_id && name) {
       await Discipline.updateOne({
         '_id': _id
       },
       {
-        'name': name
+        'name': name,
+        'spec': spec
       })
       .then(result => {
         return res.status(200).json({
