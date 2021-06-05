@@ -93,6 +93,39 @@ exports.getInfo = async(req, res, next) => {
   }
 }
 
+exports.updateInfo = async(req, res, next) => {
+  try {
+    const { email, old_password, new_password } = req.body
+
+    
+    
+    const user = await User.findOne({email})
+
+    if(user.password == old_password) {
+      await User.updateOne({email}, {password: new_password})
+      .then(result => {
+        return res.status(200).json({
+          status: 'success'
+        })
+      })
+    } else {
+      return next(
+        new AppError(
+          401,
+          "fail",
+          "Incorrect password",
+        ),
+        req,
+        res,
+        next,
+      )
+    }
+  }
+  catch (err) {
+    next(err)
+  }
+}
+
 exports.protect = async (req, res, next) => {
   try {
     let token;
