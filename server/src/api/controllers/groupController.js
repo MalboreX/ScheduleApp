@@ -19,7 +19,7 @@ exports.getGroups = async (req, res, next) => {
 exports.addGroups = async (req, res, next) => {
   try {
     const { name, spec } = req.body
-
+    
     if(name && spec) {
       const disc = new Group({
         'name': name,

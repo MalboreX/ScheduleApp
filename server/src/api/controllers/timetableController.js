@@ -1,4 +1,5 @@
 const Timetable = require('./../models/timetableModel')
+const Group = require('./../models/groupModel')
 const AppError = require('./../utils/appError')
 
 
@@ -17,13 +18,32 @@ exports.getTimetables = async(req, res, next) => {
         $lt: lt
       }
     }
+    //
 
-    await Timetable.find(query, (error, result) => {
-      if (error) {
-        return next(new AppError(500, 'fail', 'Sometimes shit happens'), req, res, next)
-      } else {
-        return res.status(200).json(result)
+    const promiseGroup = Group.find({}).then(_groups => _groups.map(x => x.name))
+
+    const promiseTT = Timetable.find(query).then(tt => tt)
+
+    await Promise.all([promiseGroup, promiseTT])
+    .then(values => {
+      const [ groups, tt ] = values
+      
+      let _result = tt
+      console.log(_result)
+
+      if(tt.length > 0) {
+        groups.forEach(gr => {
+          if(tt.findIndex(x => x.name === gr) < 0) {
+            tt.push({
+              date: tt[0].date,
+              name: gr,
+              disciplines: [{}, {}, {}, {}, {}]
+            })
+          }
+        })
       }
+
+      return res.status(200).json(_result)
     })
   }
   catch(err) {
@@ -136,7 +156,11 @@ exports.updateTimetables = async(req, res, next) => {
         date: x.date,
         name: x.name
       }, {
-        disciplines: x.disciplines
+        date: x.date,
+        disciplines: x.disciplines,
+        name: x.name
+      }, {
+        upsert: true
       })
       .then(result => {
         
