@@ -29,7 +29,7 @@ exports.getTimetables = async(req, res, next) => {
       const [ groups, tt ] = values
       
       let _result = tt
-      console.log(_result)
+
 
       if(tt.length > 0) {
         groups.forEach(gr => {
@@ -41,7 +41,16 @@ exports.getTimetables = async(req, res, next) => {
             })
           }
         })
+      } else {
+        groups.forEach(gr => {
+            tt.push({
+              date: req.params.date,
+              name: gr,
+              disciplines: [{}, {}, {}, {}, {}]
+            })
+        })
       }
+      //console.log(tt)
 
       return res.status(200).json(_result)
     })

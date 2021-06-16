@@ -2,3 +2,5 @@
 /web/build
 /server/node_modules
 /server/creds.js
+
+.idea
