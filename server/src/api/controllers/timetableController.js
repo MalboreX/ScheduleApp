@@ -41,14 +41,6 @@ exports.getTimetables = async(req, res, next) => {
             })
           }
         })
-      } else {
-        groups.forEach(gr => {
-            tt.push({
-              date: req.params.date,
-              name: gr,
-              disciplines: [{}, {}, {}, {}, {}]
-            })
-        })
       }
       //console.log(tt)
 
