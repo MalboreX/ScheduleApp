@@ -151,7 +151,6 @@ exports.removeTimetables = async(req, res, next) => {
 exports.updateTimetables = async(req, res, next) => {
   try {
     const timetables = req.body.timetables
-
     for(let x of timetables) {
       await Timetable.findOneAndUpdate({
         date: x.date,
@@ -168,7 +167,7 @@ exports.updateTimetables = async(req, res, next) => {
       })
       .catch(error => {
         console.log(error)
-        return next(new AppError(500, 'fail', 'Sometimes shit happens'), req, res, next)
+        //return next(new AppError(500, 'fail', 'Sometimes shit happens'), req, res, next)
       }) 
     }
 
